@@ -18,8 +18,18 @@
     $.ajax({
 
     }).done(function(res) {
-      $('#pokemon_search').click(function() {
+      $(document).on('click','#pokemon_search', function() {
         $('#wrapper').html(encountHtml);
+      });
+
+      $(document).on('click','#catch', function() {
+        if (Math.random() < 0.5) {
+          $('#wrapper').html(doneHtml);
+          console.log(beforeHtml);
+        } else {
+          $('#wrapper').html(failHtml);
+          console.log(beforeHtml);
+        }
       });
 
     }).fail(function(err) {
