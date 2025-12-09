@@ -15,6 +15,16 @@
   </div>
   <script src="../../common/js/jquery.js"></script>
   <script>
+    $.ajax({
+
+    }).done(function(res) {
+      $('#pokemon_search').click(function() {
+        $('#wrapper').html(encountHtml);
+      });
+
+    }).fail(function(err) {
+
+    });
      // 「捕まえる」失敗時の画面表示
   let failHtml =
   `
