@@ -16,8 +16,8 @@
   <script src="../../common/js/jquery.js"></script>
   <script>
     let beforeHtml = $('#wrapper').html();
-    $(document).on('click','#pokemon_search', function() {
-      let pokemon_number = Math.floor( Math.random() * 152 ) +1;
+    $(document).on('click', '#pokemon_search', function() {
+      let pokemon_number = Math.floor(Math.random() * 152) + 1;
       let pokemon_url = 'https://pokeapi.co/api/v2/pokemon/' + pokemon_number;
       $.ajax({
         url: pokemon_url,
@@ -45,7 +45,7 @@
       method: 'GET'
     }).done(function(ballRes){
       let ball_image_url = ballRes.sprites.default;
-      $(document).on('click','#catch', function() {
+      $(document).on('click', '#catch', function() {
         if (Math.random() < 0.5) {
           $('#wrapper').html(doneHtml);
           $('.img').attr('src', ball_image_url);
