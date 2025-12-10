@@ -101,17 +101,21 @@
       // eachには引数を二つ持たせることができ、第一引数はDOM要素のインデックス番号、第二引数ではDOM要素自体が取得できます
       $('.select').click(function() {
         var categoryValue = $(this).val();
-        $('li').each(function() {
-          var categoryType = $(this).data('category-type');
 
-          if(categoryValue === 'all') {
-            $(this).show();
-          } else if(categoryValue === categoryType) {
-            $(this).show();
-          } else {
-            $(this).hide();
-          }
-        });
+        if(categoryValue === 'all') {
+          $('li').show();
+
+        } else {
+          $('li').each(function() {
+            var categoryType = $(this).data('category-type');
+
+            if(categoryValue === categoryType) {
+              $(this).show();
+            } else {
+              $(this).hide();
+            }
+          });
+        }
       });
     </script>
   </body>

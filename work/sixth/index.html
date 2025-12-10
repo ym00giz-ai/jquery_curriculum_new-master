@@ -15,7 +15,81 @@
   </div>
   <script src="../../common/js/jquery.js"></script>
   <script>
-    // 回答はここに書いてね
+    let beforeHtml = $('#wrapper').html();
+    $(document).on('click', '#pokemon_search', function() {
+      let pokemon_number = Math.floor(Math.random() * 152) + 1;
+      let pokemon_url = 'https://pokeapi.co/api/v2/pokemon/' + pokemon_number;
+      $.ajax({
+        url: pokemon_url,
+        method: 'GET'
+      }).done(function(pokemonRes) {
+        $.ajax({
+          url: pokemonRes.species.url,
+          method: 'GET'
+        }).done(function(namesRes) {
+          let name = namesRes.names[0].name;
+          let image_url = pokemonRes.sprites.front_default;
+            $('#wrapper').html(encountHtml);
+            $('.img').attr('src', image_url);
+            $('.name').text(name);
+        }).fail(function(err) {
+
+        });
+      }).fail(function(err) {
+
+      });
+    });
+
+    $.ajax({
+      url: 'https://pokeapi.co/api/v2/item/4',
+      method: 'GET'
+    }).done(function(ballRes){
+      let ball_image_url = ballRes.sprites.default;
+      $(document).on('click', '#catch', function() {
+        if (Math.random() < 0.5) {
+          $('#wrapper').html(doneHtml);
+          $('.img').attr('src', ball_image_url);
+        } else {
+          $('#wrapper').html(failHtml);
+        }
+      });
+    }).fail(function(err){
+
+    });
+
+    $(document).on('click', '[data-js="reset"]', function() {
+      $('#wrapper').html(beforeHtml);
+    });
+
+     // 「捕まえる」失敗時の画面表示
+  let failHtml =
+  `
+    <p class="text">逃げられてしまった...</p>
+    <button class="btn mt" data-js="reset">戻る</button>
+  `
+
+  // 「ポケモンを探す」後の画面表示
+  let encountHtml =
+  `
+    <p class="name"></p>
+    <div>
+      <img class="img" src="" alt="">
+    </div>
+    <div>
+      <button class="btn" id="catch">捕まえる</button>
+      <button class="btn" data-js="reset">逃げる</button>
+    </div>
+  `
+
+  // 「捕まえる」成功時の画面表示
+  let doneHtml =
+  `
+    <p class="name">ゲットしました</p>
+    <div>
+      <img class="img" src="" alt="">
+    </div>
+    <button class="btn" data-js="reset">戻る</button>
+  `
   </script>
 </body>
 </html>
