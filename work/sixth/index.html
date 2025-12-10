@@ -47,8 +47,8 @@
       let ball_image_url = ballRes.sprites.default;
       $(document).on('click','#catch', function() {
         if (Math.random() < 0.5) {
-        $('#wrapper').html(doneHtml);
-        $('.img').attr('src', ball_image_url);
+          $('#wrapper').html(doneHtml);
+          $('.img').attr('src', ball_image_url);
         } else {
           $('#wrapper').html(failHtml);
         }
