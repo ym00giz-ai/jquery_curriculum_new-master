@@ -16,8 +16,9 @@
   <script src="../../common/js/jquery.js"></script>
   <script>
     let beforeHtml = $('#wrapper').html();
+    let pokemon_number = Math.floor( Math.random() * 152 ) +1;
     $.ajax({
-      url: 'https://pokeapi.co/api/v2/pokemon/1',
+      url: 'https://pokeapi.co/api/v2/pokemon/' + pokemon_number,
       method: 'GET'
     }).done(function(pokemonRes) {
       $.ajax({
