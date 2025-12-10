@@ -17,20 +17,39 @@
   <script>
     let beforeHtml = $('#wrapper').html();
     $.ajax({
+      url: 'https://pokeapi.co/api/v2/pokemon/1',
+      method: 'GET'
+    }).done(function(pokemonRes) {
+      $.ajax({
+        url: pokemonRes.species.url,
+        method: 'GET'
+      }).done(function(namesRes) {
+        let name = namesRes.names[0].name;
+        let image_url = pokemonRes.sprites.front_default;
+        $(document).on('click','#pokemon_search', function() {
+          $('#wrapper').html(encountHtml);
+          $('.img').attr('src', image_url);
+          $('.name').text(name);
+        });
+      }).fail(function(err) {
 
-    }).done(function(res) {
-      $(document).on('click','#pokemon_search', function() {
-        $('#wrapper').html(encountHtml);
       });
 
-      $(document).on('click','#catch', function() {
-        if (Math.random() < 0.5) {
+      $.ajax({
+        url: 'https://pokeapi.co/api/v2/item/4',
+        method: 'GET'
+      }).done(function(ballRes){
+        let ball_image_url = ballRes.sprites.default;
+        $(document).on('click','#catch', function() {
+          if (Math.random() < 0.5) {
           $('#wrapper').html(doneHtml);
-          console.log(beforeHtml);
-        } else {
-          $('#wrapper').html(failHtml);
-          console.log(beforeHtml);
-        }
+          $('.img').attr('src', ball_image_url);
+          } else {
+            $('#wrapper').html(failHtml);
+          }
+        });
+      }).fail(function(err){
+
       });
 
       $(document).on('click', '[data-js="reset"]', function() {
